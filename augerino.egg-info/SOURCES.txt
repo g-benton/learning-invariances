@@ -1,0 +1,7 @@
+README.md
+setup.py
+augerino.egg-info/PKG-INFO
+augerino.egg-info/SOURCES.txt
+augerino.egg-info/dependency_links.txt
+augerino.egg-info/requires.txt
+augerino.egg-info/top_level.txt

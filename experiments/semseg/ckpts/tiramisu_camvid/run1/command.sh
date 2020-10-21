@@ -1,0 +1,1 @@
+train.py --data_path /home/izmailovpavel/datasets/CamVid/ --model FCDenseNet67 --loss cross_entropy --optimizer SGD --lr_init 1e-2 --batch_size 4 --ft_start 750 --ft_batch_size 1 --epochs 1000 --dir=ckpts/tiramisu_camvid/run1

@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: augerino
+Version: 0.1
+Summary: Learning Augmentations
+Home-page: UNKNOWN
+Author: Marc Finzi, Greg Benton, Pavel Izmailov
+Author-email: gwb260@nyu.edu
+License: MIT
+Description: # ja~~u~~guar
+        
+Platform: UNKNOWN
+Requires-Python: >=3.6
+Provides-Extra: GN
+Provides-Extra: TBX

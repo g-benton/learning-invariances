@@ -1,0 +1,1 @@
+train_augerino.py --data_path /home/pavel_i/datasets/CamVid/ --model FCDenseNet67 --lr_init 1e-2 --batch_size 4 --ft_start 750 --ft_batch_size 1 --epochs 1000 --dir=ckpts/tiramisu_rotcamvid/augerino_run1 --save_freq=50 --rotations_npz=rotation_tensors.npz --padding=50

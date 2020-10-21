@@ -1,0 +1,12 @@
+h5py
+olive-oil-ml@ git+https://github.com/mfinzi/olive-oil-ml
+torchdiffeq@ git+https://github.com/rtqichen/torchdiffeq
+
+[GN]
+torch-scatter
+torch-sparse
+torch-cluster
+torch-geometric
+
+[TBX]
+tensorboardX
