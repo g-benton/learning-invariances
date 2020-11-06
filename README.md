@@ -17,12 +17,18 @@ We learn distribution <img src="https://render.githubusercontent.com/render/math
 
 Please cite our work if you find it helpful in your work:
 ```
-placeholder
+@article{benton2020learning,
+  title={Learning Invariances in Neural Networks},
+  author={Benton, Gregory and Finzi, Marc and Izmailov, Pavel and Wilson, Andrew Gordon},
+  journal={arXiv preprint arXiv:2010.11882},
+  year={2020}
+}
 ```
 
 To install the `augerino` package, which includes the relevant models and loss functions to produce the results presented in the paper run:
 ```
-python setup.py
+git clone https://github.com/g-benton/learning-invariances.git
+pip install -e learning-invariances
 ```
 
 # Experiments
@@ -83,6 +89,20 @@ python train_augerino.py --epochs=<training Epochs> \
                  --ncopies=<number of test time augmentation samples> \
                  --batch_size=<batch size>
 ```
+
+## QM9
+
+The scripts to train Augerino and the baselines on QM9 are located in `./experiments/qm9/`
+To run all of the QM9 experiments in the paper and summarize the results in a dataframe, run 
+```bash
+python trainqm9_all.py
+```
+which will automatically parallelize to multiple gpus if they are visible from `CUDA_VISIBLE_DEVICES`.
+To run just a single augerino model, use
+```bash
+python trainqm9.py --task=TASK --group=GROUP --augerino=True --aug=True
+```
+where we report results on TASK='homo' and TASK='lumo' and group='Trivial(3)' or group='T(3)' for no equivariance and translation equivariance respectively. To test the no augmentation baseline, run with flags `--augerino=False --aug=False` and to test the handcrafted SE(3) augmentation baseline run with `--augerino=False --aug=True`.
 
 ## Effective Dimension
 
