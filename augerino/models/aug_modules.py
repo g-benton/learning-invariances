@@ -39,6 +39,21 @@ class DiffAug(nn.Module):
 
 
 class AugAveragedModel(nn.Module):
+    """Augerino super-model
+
+    It encapsulates a backbone neural network with an augmentation layer in the
+    front-end and an averaging layer on the back-end.
+
+    Parameters
+    ----------
+    model: torch.nn.Module
+        Backbone network.
+    aug: torch.nn.Moduel
+        Augmentation layer, e.g. ``augerino.models.UniformAug``.
+    n_copies: int, optional
+        Number of batch copies made before augmentation. Only used for
+        inference, not for training (n_copies=1). Defaults to 4.
+    """
     def __init__(self, model, aug, ncopies=4):
         super().__init__()
         self.aug = aug
@@ -47,16 +62,18 @@ class AugAveragedModel(nn.Module):
 
     def forward(self, x):
         if self.training:
+            # In training mode, the batch is not copied:
+            # We just augment and compute the backbone forward
             return self.model(self.aug(x))
         else:
-            # Faster batched implementation
-            # return (
-            #   sum(F.log_softmax(self.model(self.aug(x)),dim=-1)
-            #   for _ in range(self.ncopies))/self.ncopies
-            # )  #.log()
+            # Replicate the batch n_copies times, augment each of them and
+            # concatenate
             bs = x.shape[0]
             aug_x = torch.cat(
                 [self.aug(x) for _ in range(self.ncopies)], dim=0)
+
+            # Compute the forward of the augmented super-batch, the logits,
+            # and averages over n_copies
             return sum(
                 torch.split(F.log_softmax(self.model(aug_x), dim=-1), bs)
             ) / self.ncopies

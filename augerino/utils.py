@@ -5,11 +5,21 @@ import sys
 import random
 from torchdiffeq import odeint
 
-def expm(A,rtol=1e-4):
+
+def expm(A, rtol=1e-4):
     """ assumes A has shape (bs,d,d)
         returns exp(A) with shape (bs,d,d) """
-    I = torch.eye(A.shape[-1],device=A.device,dtype=A.dtype)[None].repeat(A.shape[0],1,1)
-    return odeint(lambda t, x: A@x,I,torch.tensor([0.,1.]).to(A.device,A.dtype), rtol=rtol)[-1]
+    I = torch.eye(
+        A.shape[-1],
+        device=A.device,
+        dtype=A.dtype
+    )[None].repeat(A.shape[0], 1, 1)
+    return odeint(
+        lambda t, x: A @ x,
+        I,
+        torch.tensor([0., 1.]).to(A.device, A.dtype),
+        rtol=rtol
+    )[-1]
 
 def fixed_compute_expm(A,rtol=1e-4):
     """ assumes A has shape (bs,d,d)
