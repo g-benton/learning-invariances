@@ -1,10 +1,9 @@
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class Flatten(nn.Module):
     def forward(self, x): return x.view(x.size(0), x.size(1))
+
 
 def SimpleConv(c=64, num_classes=10, in_channel=3):
     ''' Returns a 5-layer CNN with width parameter c. '''
@@ -41,4 +40,3 @@ def SimpleConv(c=64, num_classes=10, in_channel=3):
         Flatten(),
         nn.Linear(c*8, num_classes, bias=True)
     )
-
